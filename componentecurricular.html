@@ -1,0 +1,2026 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Lista de Componentes Curriculares - SGPA</title>
+
+</head>
+<body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+        <div class="text-center mb-3">
+            <img src="/images/logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/turno">Turnos</a></li>
+                            <li><a class="dropdown-item" href="/horario">Horários</a></li>
+                            <li><a class="dropdown-item" href="/sala">Salas</a></li>
+                            <li><a class="dropdown-item" href="/tipoatividade">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/turma">Turmas</a></li>
+                            <li><a class="dropdown-item" href="/componentecurricular">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/areaconhecimento">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="/docente">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cenario">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div>
+        <h1 class="text-center">Lista de Componentes Curriculares</h1>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-5"></div>
+
+        <table class="table table-sucess table-striped ">
+            <thead>
+            <tr> <a href="/componentecurricular/new" class="btn btn-success">+Adicionar</a></tr>
+            <tr>
+                <!------------- Prenche dinamicamente o nome das colunas com base no objeto ------------------------------->
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nome </th>
+                <th>Área de Conhecimento</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody id="corpo-tabela">
+            <!------------------ Prenche dinamicamente o valor de cada coluna com base no objeto -------------------------->
+            <tr>
+                <td>1</td>
+                <td>GCETENS131.P</td>
+                <td>FUNDAMENTOS DE QUIMICA II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/1" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/1" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>GCETENS115.P</td>
+                <td>FUNDAMENTOS DE QUÍMICA I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/2" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/2" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>GCETENS120.P</td>
+                <td>BASES TEORICAS E EXPERIMENTAIS DA FISICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/3" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/3" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>GCETENS136.P</td>
+                <td>OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/4" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/4" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>GCETENS129.P</td>
+                <td>FENOMENOS MECÂNICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/5" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/5" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>GCETENS145.P</td>
+                <td>FENOMENOS DE TRANSPORTE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/6" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/6" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>GCETENS143.P</td>
+                <td>FENOMENOS ELETROMAGNETICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/7" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/7" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>GCETENS121.P</td>
+                <td>PROGRAMACAO DE COMPUTADORES I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/8" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/8" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>GCETENS195</td>
+                <td>PROCESSAMENTO DE MATERIAIS CERAMICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/9" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/9" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>GCETENS363</td>
+                <td>CARACTERIZAÇÃO DE MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/10" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/10" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>GCETENS364</td>
+                <td>QUÍMICA E ESTRUTURA DE POLÍMEROS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/11" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/11" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>GCETENS371</td>
+                <td>MATÉRIAS-PRIMAS CERÂMICAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/12" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/12" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>GCETENS390</td>
+                <td>ANÁLISE DE FALHA DOS MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/13" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/13" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>GCETENS394</td>
+                <td>PROPRIEDADES DOS MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/14" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/14" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>GCETENS550</td>
+                <td>ENERGIA NUCLEAR</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/15" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/15" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>GCETENS143.T</td>
+                <td>FENOMENOS ELETROMAGNETICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/16" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/16" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>GCETENS211</td>
+                <td>RADIACAO SOLAR</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/17" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/17" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>GCETENS552</td>
+                <td>ENERGIA EÓLICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/18" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/18" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>GCETENS553</td>
+                <td>BIOCOMBUSTÍVEIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/19" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/19" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>GCETENS455</td>
+                <td>ESTÁGIO SUPERVISIONADO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/20" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/20" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>GCETENS212</td>
+                <td>TECNOLOGIA DE SISTEMAS FOTOVOLTAICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/21" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/21" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>GCETENS441</td>
+                <td>SISTEMAS DE POTÊNCIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/22" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/22" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>GCETENS188</td>
+                <td>ELETRONICA DE POTENCIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/23" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/23" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>GCETENS439</td>
+                <td>CONVERSÃO ELETROMECÂNICA DE ENERGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/24" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/24" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>GCETENS140</td>
+                <td>PROJETO INTERDISCIPLINAR IV</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/25" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/25" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>GCETENS448</td>
+                <td>SEMINÁRIOS AVANÇADOS DE ENERGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/26" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/26" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>GCETENS548</td>
+                <td>TRABALHO DE CONCLUSÃO DE CURSO EM ENGENHARIA DE ENERGIAS I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/27" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/27" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>GCETENS434</td>
+                <td>PLANEJAMENTO ENERGÉTICO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/28" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/28" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>GCETENS445</td>
+                <td>MÁQUINAS ELÉTRICAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/29" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/29" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>GCETENS356</td>
+                <td>FONTES DE ENERGIA E TECNOLOGIAS DE CONVERSÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/30" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/30" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>GCETENS357</td>
+                <td>LEGISLAÇÃO ENERGÉTICA E AMBIENTAL</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/31" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/31" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>GCETENS220</td>
+                <td>PESQUISA OPERACIONAL</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/32" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/32" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>GCETENS368</td>
+                <td>BIOMASSA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/33" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/33" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>GCETENS172</td>
+                <td>CIRCUITOS ELETRICOS I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/34" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/34" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td>GCETENS315</td>
+                <td>MÉTODOS ESTATÍSTICOS APLIC. À ENGENHARIA DE PRODUÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/35" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/35" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>GCETENS205</td>
+                <td>FUNDAMENTOS DE BIOTECNOLOGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/36" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/36" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>37</td>
+                <td>GCETENS344</td>
+                <td>GESTÃO FINANCEIRA E ORÇAMENTÁRIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/37" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/37" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>38</td>
+                <td>GCETENS314</td>
+                <td>CUSTOS EMPRESARIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/38" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/38" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>39</td>
+                <td>GCETENS320</td>
+                <td>ENGENHARIA DE PROCESSOS E NEGÓCIOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/39" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/39" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>40</td>
+                <td>GCETENS324</td>
+                <td>GESTÃO DE TECNOLOGIA DE INFORMAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/40" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/40" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>41</td>
+                <td>GCETENS129.T</td>
+                <td>FENOMENOS MECÂNICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/41" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/41" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>42</td>
+                <td>GCETENS136.T</td>
+                <td>OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/42" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/42" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>43</td>
+                <td>GCETENS302</td>
+                <td>ADMINISTRAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/43" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/43" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>44</td>
+                <td>GCETENS503</td>
+                <td>GERONTOLOGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/44" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/44" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>45</td>
+                <td>GCETENS507</td>
+                <td>INSTRUMENTAÇÃO ELETRÔNICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/45" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/45" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>46</td>
+                <td>GCETENS154</td>
+                <td>CIÊNCIA DOS MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/46" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/46" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>47</td>
+                <td>GCETENS303</td>
+                <td>CIÊNCIAS DO AMBIENTE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/47" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/47" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>48</td>
+                <td>GCETENS373</td>
+                <td>ELETRÔNICA BÁSICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/48" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/48" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>49</td>
+                <td>GCETENS376</td>
+                <td>ANATOMIA E FISIOLOGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/49" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/49" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>50</td>
+                <td>GCETENS511</td>
+                <td>ACESSIBILIDADE FÍSICA E DESENHO UNIVERSAL</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/50" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/50" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>51</td>
+                <td>GCETENS132</td>
+                <td>ALGEBRA LINEAR I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/51" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/51" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>52</td>
+                <td>GCETENS166</td>
+                <td>TERMODINAMICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/52" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/52" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>53</td>
+                <td>GCETENS531</td>
+                <td>INTRODUÇÃO À ROBÓTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/53" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/53" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>54</td>
+                <td>GCETENS513</td>
+                <td>TECNOLOGIAS PARA A MOBILIDADE PRÓTESES E ÓRTESES</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/54" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/54" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>55</td>
+                <td>GCETENS501</td>
+                <td>PRODUTOS DE TECNOL. ASSISTIVA E CONTROLE DE QUALIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/55" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/55" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>56</td>
+                <td>GCETENS510</td>
+                <td>FUNDAMENTOS E CONCEPÇÕES SOBRE ACESSIBILIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/56" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/56" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>57</td>
+                <td>GCETENS145.T</td>
+                <td>FENOMENOS DE TRANSPORTE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/57" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/57" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>58</td>
+                <td>GCETENS306</td>
+                <td>ECONOMIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/58" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/58" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>59</td>
+                <td>GCETENS500</td>
+                <td>SISTEMAS MECÂNICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/59" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/59" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>60</td>
+                <td>GCETENS307</td>
+                <td>ENERGIA DESENVOLVIMENTO E SUSTENTABILIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/60" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/60" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>61</td>
+                <td>GCETENS121.T</td>
+                <td>PROGRAMACAO DE COMPUTADORES I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/61" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/61" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>62</td>
+                <td>GCETENS115.T</td>
+                <td>FUNDAMENTOS DE QUÍMICA I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/62" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/62" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>63</td>
+                <td>GCETENS118</td>
+                <td>LABORATÓRIO DE LÍNGUA INGLESA I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/63" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/63" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>64</td>
+                <td>GCETENS117</td>
+                <td>PROJETO INTERDISCIPLINAR I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/64" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/64" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>65</td>
+                <td>GCETENS120.T</td>
+                <td>BASES TEORICAS E EXPERIMENTAIS DA FISICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/65" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/65" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>66</td>
+                <td>GCETENS124</td>
+                <td>PROJETO INTERDISCIPLINAR II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/66" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/66" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>67</td>
+                <td>GCETENS133</td>
+                <td>PROJETO INTERDISCIPLINAR III</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/67" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/67" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>68</td>
+                <td>GCETENS354</td>
+                <td>FUNDAMENTOS DA MATEMÁTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/68" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/68" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>69</td>
+                <td>GCETENS355</td>
+                <td>FUNDAMENTOS DA MATEMÁTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/69" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/69" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>70</td>
+                <td>GCETENS164</td>
+                <td>MECANICA DOS SOLIDOS I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/70" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/70" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>71</td>
+                <td>GCETENS123</td>
+                <td>CALCULO DIFERENCIAL E INTEGRAL I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/71" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/71" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>72</td>
+                <td>GCETENS131.T</td>
+                <td>FUNDAMENTOS DE QUIMICA II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/72" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/72" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>73</td>
+                <td>GCETENS128</td>
+                <td>PROBABILIDADE E ESTATISTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/73" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/73" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>74</td>
+                <td>GCETENS157</td>
+                <td>DESENHO TÉCNICO I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/74" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/74" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>75</td>
+                <td>GCETENS135</td>
+                <td>LIBRAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/75" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/75" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>76</td>
+                <td>GCETENS305</td>
+                <td>GEOPOLÍTICA DA ENERGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/76" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/76" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>77</td>
+                <td>GCETENS144</td>
+                <td>CALCULO NUMÉRICO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/77" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/77" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>78</td>
+                <td>GCETENS309</td>
+                <td>ELETRICIDADE APLICADA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/78" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/78" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>79</td>
+                <td>GCETENS147</td>
+                <td>TRABALHO DE CONCLUSAO DE CURSO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/79" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/79" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>GCETENS304</td>
+                <td>GEOMETRIA ANALÍTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/80" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/80" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>81</td>
+                <td>GCETENS130</td>
+                <td>CALCULO DIFERENCIAL E INTEGRAL II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/81" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/81" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>82</td>
+                <td>GCETENS137</td>
+                <td>CALCULO DIFERENCIAL E INTEGRAL III</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/82" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/82" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>83</td>
+                <td>GCETENS139</td>
+                <td>INTRODUCAO AS TECNOLOGIAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/83" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/83" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>84</td>
+                <td>GCETENS301</td>
+                <td>METODOLOGIA DA PESQUISA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/84" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/84" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>85</td>
+                <td>GCETENS113</td>
+                <td>OFICINA DE LEITURA E PRODUÇÃO DE TEXTOS ACADÊMICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/85" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/85" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>86</td>
+                <td>GCETENS207</td>
+                <td>FISICO-QUIMICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/86" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/86" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>87</td>
+                <td>GCETENS358</td>
+                <td>PLANEJAMENTO INTEGRADO DE RECURSOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/87" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/87" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>88</td>
+                <td>GCETENS377</td>
+                <td>TRANSFERÊNCIA DE CALOR E MASSA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/88" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/88" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>89</td>
+                <td>GCETENS167</td>
+                <td>ELETROMAGNETISMO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/89" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/89" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>90</td>
+                <td>GCETENS210</td>
+                <td>COMBUSTAO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/90" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/90" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>91</td>
+                <td>GCETENS174</td>
+                <td>CIRCUITOS ELETRONICOS I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/91" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/91" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>92</td>
+                <td>GCETENS214</td>
+                <td>MAQUINAS TERMICAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/92" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/92" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>93</td>
+                <td>GCETENS443</td>
+                <td>EFICIÊNCIA ENERGÉTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/93" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/93" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>94</td>
+                <td>GCETENS446</td>
+                <td>TRANSMISSÃO E DISTRIBUIÇÃO DE ENERGIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/94" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/94" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>95</td>
+                <td>GCETENS549</td>
+                <td>TRABALHO DE CONCLUSÃO DE CURSO EM ENGENHARIA DE ENERGIAS II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/95" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/95" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>96</td>
+                <td>GCETENS184</td>
+                <td>FUNDAMENTOS DE CONTROLE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/96" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/96" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>97</td>
+                <td>GCETENS192</td>
+                <td>QUIMICA ANALÍTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/97" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/97" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>98</td>
+                <td>GCETENS362</td>
+                <td>ENSAIOS DOS MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/98" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/98" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>99</td>
+                <td>GCETENS370</td>
+                <td>QUÍMICA ORGÂNICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/99" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/99" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>100</td>
+                <td>GCETENS372</td>
+                <td>TRANSFORMAÇÕES DE FASES EM METAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/100" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/100" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>101</td>
+                <td>GCETENS380</td>
+                <td>REOLOGIA E PROCESSAMENTO DOS MATERIAIS POLIMÉRICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/101" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/101" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>GCETENS381</td>
+                <td>BIOMATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/102" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/102" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>GCETENS383</td>
+                <td>TECNOLOGIA DE ELASTÔMEROS E TERMOFIXOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/103" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/103" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td>GCETENS385</td>
+                <td>SELEÇÃO DE MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/104" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/104" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>105</td>
+                <td>GCETENS388</td>
+                <td>PROCESSAMENTO DOS MATERIAIS METÁLICOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/105" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/105" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>106</td>
+                <td>GCETENS392</td>
+                <td>ESTÁGIO SUPERVISIONADO EM ENGENHARIA DE MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/106" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/106" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>107</td>
+                <td>GCETENS404</td>
+                <td>SOLIDIFICAÇÃO EM METAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/107" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/107" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>108</td>
+                <td>GCETENS330</td>
+                <td>ESTÁGIO SUPERVISIONADO EM ENGENHARIA DE PRODUÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/108" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/108" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>109</td>
+                <td>GCETENS331</td>
+                <td>TRABALHO DE CONCLUSÃO DE CURSO EM ENG. DE PRODUÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/109" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/109" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>110</td>
+                <td>GCETENS216</td>
+                <td>METROLOGIA E CONTROLE DA QUALIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/110" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/110" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>111</td>
+                <td>GCETENS308</td>
+                <td>ERGONOMIA E SEGURANÇA DO TRABALHO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/111" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/111" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>112</td>
+                <td>GCETENS224</td>
+                <td>GESTAO DA QUALIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/112" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/112" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>113</td>
+                <td>GCETENS310</td>
+                <td>GESTÃO DE PROJETOS DE ENGENHARIA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/113" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/113" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>114</td>
+                <td>GCETENS311</td>
+                <td>TECNOLOGIAS DE PROCESSOS DE FABRICAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/114" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/114" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>115</td>
+                <td>GCETENS312</td>
+                <td>ADMINISTRAÇÃO DA PRODUÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/115" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/115" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>116</td>
+                <td>GCETENS316</td>
+                <td>ESTRATÉGIA E ORGANIZAÇÕES</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/116" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/116" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>117</td>
+                <td>GCETENS317</td>
+                <td>PROGRAMAÇÃO E CONTROLE DA PRODUÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/117" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/117" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>118</td>
+                <td>GCETENS318</td>
+                <td>GERÊNCIA DE SERVIÇOS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/118" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/118" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>119</td>
+                <td>GCETENS215</td>
+                <td>FUNDAMENTOS DE ENGENHARIA ECONOMICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/119" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/119" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>120</td>
+                <td>GCETENS321</td>
+                <td>AUTOMAÇÃO INDUSTRIAL E DE SISTEMAS DE MANUFATURA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/120" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/120" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>121</td>
+                <td>GCETENS322</td>
+                <td>SISTEMA DE PRODUÇÃO ENXUTA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/121" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/121" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>122</td>
+                <td>GCETENS323</td>
+                <td>EMPREENDEDORISMO E INOVAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/122" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/122" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>123</td>
+                <td>GCETENS217</td>
+                <td>TRANSPORTE E LOGISTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/123" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/123" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>124</td>
+                <td>GCETENS326</td>
+                <td>GESTÃO DA MANUTENÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/124" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/124" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>125</td>
+                <td>GCETENS327</td>
+                <td>GESTÃO ESTRATÉGICA DE PESSOAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/125" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/125" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>126</td>
+                <td>GCETENS328</td>
+                <td>ENGENHARIA DO PRODUTO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/126" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/126" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>127</td>
+                <td>GCETENS329</td>
+                <td>PROJETO INTEGRADOR</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/127" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/127" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>128</td>
+                <td>GCETENS352</td>
+                <td>GESTÃO DO CONHECIMENTO E INOVAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/128" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/128" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>129</td>
+                <td>GCETENS359</td>
+                <td>FUNDAMENTOS E CONCEPÇÕES SOBRE DEFICIÊNCIA I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/129" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/129" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>130</td>
+                <td>GCETENS375</td>
+                <td>PSICOLOGIA DAS RELAÇÕES HUMANAS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/130" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/130" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>131</td>
+                <td>GCETENS163</td>
+                <td>PROGRAMACAO DE COMPUTADORES II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/131" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/131" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>132</td>
+                <td>GCETENS360</td>
+                <td>INTRODUÇÃO AOS ESTUDOS DE TECNOLOGIA ASSISTIVA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/132" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/132" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>133</td>
+                <td>GCETENS361</td>
+                <td>FUNDAMENTOS E CONCEPÇÕES SOBRE DEFICIÊNCIA II</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/133" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/133" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>134</td>
+                <td>GCETENS374</td>
+                <td>INFORMÁTICA ACESSÍVEL</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/134" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/134" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>135</td>
+                <td>GCETENS502</td>
+                <td>CIRCUITOS DIGITAIS I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/135" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/135" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>136</td>
+                <td>GCETENS508</td>
+                <td>COMUNICAÇÃO ALTERNATIVA E AUMENTATIVA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/136" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/136" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>137</td>
+                <td>GCETENS509</td>
+                <td>PROJETO INTERDISCIPLINAR NA COMUNIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/137" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/137" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>138</td>
+                <td>GCETENS512</td>
+                <td>INTRODUÇÃO AO DESENVOLVIMENTO WEB ACESSÍVEL</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/138" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/138" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>139</td>
+                <td>GCETENS514</td>
+                <td>FUNDAMENTOS DE MECATRÔNICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/139" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/139" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>140</td>
+                <td>GCETENS516</td>
+                <td>SISTEMAS MICROCONTROLADOS E DOMÓTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/140" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/140" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>141</td>
+                <td>GCETENS519</td>
+                <td>ESTÁGIO EM ENG. DE TECNOLOGIA ASSISTIVA E ACESSIBILIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/141" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/141" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>142</td>
+                <td>GCETENS520</td>
+                <td>TCC DE ENG. DE TECNOLOGIA ASSISTIVA E ACESSIBILIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/142" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/142" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>143</td>
+                <td>GCETENS111</td>
+                <td>UNIVERSIDADE SOCIEDADE E AMBIENTE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/143" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/143" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>144</td>
+                <td>GCETENS112</td>
+                <td>DIVERSIDADE CULTURA E RELAÇÕES ÉTNICO-RACIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/144" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/144" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>145</td>
+                <td>PGSS054</td>
+                <td>ABORDAGENS METODOLÓGICAS DA PESQUISA EM EDUCAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/145" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/145" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>146</td>
+                <td>PGSS055</td>
+                <td>SEMINÁRIOS TEMÁTICOS EM EDUCAÇÃO I</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/146" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/146" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>147</td>
+                <td>PGSS057</td>
+                <td>SEMINÁRIOS TEMÁTICOS EM EDUCAÇÃO III</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/147" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/147" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>148</td>
+                <td>PGSS069</td>
+                <td>TECNOLOGIA ASSISTIVA E EDUCAÇÃO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/148" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/148" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>149</td>
+                <td>PGSS075</td>
+                <td>EDUCAÇÃO, GÊNERO E SEXUALIDADE</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/149" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/149" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>150</td>
+                <td>PGSS466</td>
+                <td>TECNOLOGIAS DIGITAIS E FORMAÇÃO DE PROFESSORES</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/150" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/150" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>151</td>
+                <td>PGSS500</td>
+                <td>ETNOGRAFIA E ETNOMATEMÁTICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/151" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/151" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>152</td>
+                <td>PGSS053</td>
+                <td>EDUCAÇÃO CIENTÍFICA DIVERSIDADE E PRÁXIS PEDAGÓGICA</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/152" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/152" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>153</td>
+                <td>GCETENS219</td>
+                <td>ADMINISTRACAO DA PRODUCAO</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/153" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/153" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>154</td>
+                <td>GCETENS386</td>
+                <td>CORROSÃO E PROTEÇÃO DE MATERIAIS</td>
+                <td>Não definida</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/componentecurricular/edit/154" class="btn btn-info">Editar</a>
+                    <a href="/componentecurricular/delete/154" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    <a href="/componentecurricular/import" class="btn btn-outline-primary">+Importar CSV</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

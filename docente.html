@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Lista de Docentes por Área - SGPA</title>
+
+    <style>
+        .docente-container {
+            margin: 16px auto;
+            max-width: 1400px;
+        }
+        .area-header {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+        .area-header h3 {
+            color: #111827;
+            font-weight: 600;
+        }
+        .area-header small {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        .total-sistema {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+        .sem-docentes {
+            color: #6b7280;
+            font-style: italic;
+            text-align: center;
+            padding: 40px;
+            background-color: #f9fafb;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+        <div class="text-center mb-3">
+            <img src="logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turno.html">Turnos</a></li>
+                            <li><a class="dropdown-item" href="horario.html">Horários</a></li>
+                            <li><a class="dropdown-item" href="sala.html">Salas</a></li>
+                            <li><a class="dropdown-item" href="tipoatividade.html">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turma.html">Turmas</a></li>
+                            <li><a class="dropdown-item" href="componentecurricular.html">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="areaconhecimento.html">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="docente.html">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cenario.html">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div>
+        <h1 class="text-center">Lista de Docentes por Área de Conhecimento</h1>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-3"></div>
+
+        <!-- Botões de Navegação e Seletor -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a class="btn btn-outline-secondary"
+                   href="/docente/view/paginado?index=0">
+                    « Anterior
+                </a>
+                <a class="btn btn-outline-secondary ms-2"
+                   href="/docente/view/paginado?index=2">
+                    Próximo »
+                </a>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <span class="me-2 flex-shrink-0 text-nowrap">Área de Conhecimento:</span>
+
+                <select class="form-select form-select-sm"
+                        style="width: auto; min-width: 200px;"
+                        onchange="location.href=this.value;">
+                    <option value="/docente/view/paginado?index=0">Não definida (0 docentes)</option>
+                    <option value="/docente/view/paginado?index=1"
+                            selected="selected">Ciências Exatas e da Terra (19 docentes)</option>
+                    <option value="/docente/view/paginado?index=2">Educação do Campo e Desenvolvimento Territorial (16 docentes)</option>
+                    <option value="/docente/view/paginado?index=3">Engenharias (25 docentes)</option>
+                    <option value="/docente/view/paginado?index=4">Energias (12 docentes)</option>
+                    <option value="/docente/view/paginado?index=5">Interdisciplinar (11 docentes)</option>
+                    <option value="/docente/view/paginado?index=6">Docência, Práticas Educativas e Ensino na Educação (9 docentes)</option>
+                    <option value="/docente/view/paginado?index=7">Física (9 docentes)</option>
+                </select>
+            </div>
+
+            <div>
+                <a href="/docente/new" class="btn btn-success">
+                    +Adicionar
+                </a>
+            </div>
+        </div>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-3"></div>
+
+        <!-- Conteúdo: Área Atual -->
+        <div class="docente-container">
+            <!-- Caso não haja áreas -->
+
+
+            <!-- Área Atual -->
+            <div>
+                <!-- Cabeçalho da Área -->
+                <div class="area-header">
+                    <h3 class="mb-0">📚 Ciências Exatas e da Terra</h3>
+                    <small>Total da área: 19 docente(s)</small>
+
+                    <!-- Total geral do sistema (discreto no canto direito) -->
+                    <span class="total-sistema">Total no sistema: 101</span>
+                </div>
+
+                <!-- Se a área tem docentes -->
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Nome </th>
+                            <th class="text-center">Área de Conhecimento</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td class="text-center">Alex Ferreira Santos</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/1"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/1"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td class="text-center">Anderson Dourado Sisnando</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/2"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/2"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td class="text-center">Caroline Morais Batista Cerqueira</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/3"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/3"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td class="text-center">Caroline Martins da Silva Saba</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/4"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/4"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td class="text-center">Hilda Costa dos Santos Talma</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/5"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/5"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6</td>
+                            <td class="text-center">Iuri Santos Souza</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/6"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/6"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">7</td>
+                            <td class="text-center">Jacira Teixeira Castro</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/7"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/7"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">8</td>
+                            <td class="text-center">Jaqueline Alexsandra de Souza Azevedo</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/8"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/8"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">9</td>
+                            <td class="text-center">Jean Paulo dos Santos Carvalho</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/9"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/9"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">10</td>
+                            <td class="text-center">Joelma Cerqueira Fadigas</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/10"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/10"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">11</td>
+                            <td class="text-center">Katya Silene Porto Rodrigues</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/11"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/11"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">12</td>
+                            <td class="text-center">Leandro Brito Santos</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/12"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/12"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">13</td>
+                            <td class="text-center">Odair Vieira dos Santos</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/13"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/13"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">14</td>
+                            <td class="text-center">Pedro Rocha Barbosa</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/14"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/14"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Rafaela Oliveira Ferreira</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/15"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/15"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">16</td>
+                            <td class="text-center">Rodrigo Silva dos Santos</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/16"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/16"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">17</td>
+                            <td class="text-center">Sara Ruth Bispo de Menezes Oliveira</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/17"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/17"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">18</td>
+                            <td class="text-center">Sérgio Anunciação Rocha</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/18"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/18"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">19</td>
+                            <td class="text-center">Tiago Oliveira Motta</td>
+                            <td class="text-center">Ciências Exatas e da Terra</td>
+                            <td class="text-center">
+                                <a href="/docente/edit/19"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/docente/delete/19"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Se a área NÃO tem docentes -->
+
+            </div>
+        </div>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-4"></div>
+
+        <!-- Botão de Importação (sempre visível) -->
+        <div class="text-center">
+            <a href="/docente/import" class="btn btn-outline-primary">
+                +Importar CSV
+            </a>
+        </div>
+
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

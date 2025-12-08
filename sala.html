@@ -1,10 +1,621 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Lista de Salas - SGPA</title>
+
 </head>
 <body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="text-center mb-3">
+            <img src="logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turno.html">Turnos</a></li>
+                            <li><a class="dropdown-item" href="horario.html">Horários</a></li>
+                            <li><a class="dropdown-item" href="sala.html">Salas</a></li>
+                            <li><a class="dropdown-item" href="tipoatividade.html">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turma.html">Turmas</a></li>
+                            <li><a class="dropdown-item" href="componentecurricular.html">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="areaconhecimento.html">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="docente.html">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cenario.html">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div>
+        <h1 class="text-center">Lista de Salas</h1>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-5"></div>
+
+        <table class="table table-sucess table-striped ">
+            <thead>
+            <tr> <a href="/sala/new" class="btn btn-success">+Adicionar</a></tr>
+            <tr>
+                <!------------- Prenche dinamicamente o nome das colunas com base no objeto ------------------------------->
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Capacidade</th>
+                <th>Tipo de atividade</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody id="corpo-tabela">
+            <!------------------ Prenche dinamicamente o valor de cada coluna com base no objeto -------------------------->
+            <tr>
+                <td>1</td>
+                <td>Sala 001</td>
+                <td>30</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/1" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/1" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sala 002</td>
+                <td>30</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/2" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/2" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Sala 101</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/3" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/3" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Sala 102</td>
+                <td>60</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/4" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/4" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Sala 103</td>
+                <td>60</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/5" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/5" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Sala 104</td>
+                <td>50</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/6" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/6" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Sala 201</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/7" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/7" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Sala 202</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/8" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/8" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Sala 203</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/9" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/9" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Sala 204</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/10" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/10" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Sala 205</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/11" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/11" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Sala 206</td>
+                <td>40</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/12" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/12" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Sala 207</td>
+                <td>60</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/13" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/13" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Sala 208</td>
+                <td>20</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/14" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/14" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Sala 209</td>
+                <td>20</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/15" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/15" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Sala 210</td>
+                <td>30</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/16" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/16" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Sala 211</td>
+                <td>20</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/17" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/17" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Sala 212</td>
+                <td>20</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/18" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/18" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>Lab 01</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/19" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/19" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>Lab 02</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/20" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/20" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>Lab 03</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/21" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/21" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>Lab 04</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/22" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/22" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>Lab 05</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/23" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/23" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Lab 06</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/24" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/24" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>Lab 07</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/26" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/26" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>Lab 08</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/27" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/27" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>Lab 09</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/28" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/28" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>Lab 201</td>
+                <td>25</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/29" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/29" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>Lab 202</td>
+                <td>25</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/30" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/30" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>Lab 203</td>
+                <td>25</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/31" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/31" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>Lab 204</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/32" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/32" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>Lab 101</td>
+                <td>10</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/33" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/33" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>Lab 103</td>
+                <td>10</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/34" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/34" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td>Lab 105</td>
+                <td>10</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/35" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/35" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>Sala de reuniões</td>
+                <td>30</td>
+                <td>Aula teórica</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/36" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/36" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>37</td>
+                <td>Lab info 1</td>
+                <td>20</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/37" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/37" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>38</td>
+                <td>Lab info 2</td>
+                <td>22</td>
+                <td>Aula prática</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/sala/edit/38" class="btn btn-info">Editar</a>
+                    <a href="/sala/delete/38" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    <a href="/sala/import" class="btn btn-outline-primary">+Importar CSV</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 
 </body>
 </html>

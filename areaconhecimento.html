@@ -16,7 +16,7 @@
 
     <!-- Título dinâmico da página -->
 
-    <title>Lista de Horários - SGPA</title>
+    <title>Lista de Áreas de Conhecimento - SGPA</title>
 
 </head>
 <body>
@@ -93,226 +93,108 @@
     <div class="pb-5"></div>
 
     <div>
-        <h1 class="text-center">Lista de Horários</h1>
+        <h1 class="text-center">Lista de Áreas de Conhecimento</h1>
 
         <!----------------------------------------- Espaçador ------------------------------------------------------------->
         <div class="pb-5"></div>
 
         <table class="table table-sucess table-striped ">
             <thead>
-            <tr> <a href="/horario/new" class="btn btn-success">+Adicionar</a></tr>
+            <tr> <a href="/areaconhecimento/new" class="btn btn-success">+Adicionar</a></tr>
             <tr>
                 <!------------- Prenche dinamicamente o nome das colunas com base no objeto ------------------------------->
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Posição</th>
-                <th>Sigla</th>
-                <th>Turno</th>
                 <th>Ações</th>
             </tr>
             </thead>
             <tbody id="corpo-tabela">
             <!------------------ Prenche dinamicamente o valor de cada coluna com base no objeto -------------------------->
             <tr>
-                <td>2</td>
-                <td>07-08h</td>
                 <td>0</td>
-                <td>1M</td>
-                <td>Manhã</td>
+                <td>Não definida</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/2" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/2" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/0" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/0" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Ciências Exatas e da Terra</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/areaconhecimento/edit/1" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/1" class="btn btn-danger"
+                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Educação do Campo e Desenvolvimento Territorial</td>
+                <td>
+                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
+                    <a href="/areaconhecimento/edit/2" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/2" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>08-09h</td>
-                <td>1</td>
-                <td>2M</td>
-                <td>Manhã</td>
+                <td>Engenharias</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/3" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/3" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/3" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/3" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             <tr>
                 <td>4</td>
-                <td>09-10h</td>
-                <td>2</td>
-                <td>3M</td>
-                <td>Manhã</td>
+                <td>Energias</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/4" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/4" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/4" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/4" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             <tr>
                 <td>5</td>
-                <td>10-11h</td>
-                <td>3</td>
-                <td>4M</td>
-                <td>Manhã</td>
+                <td>Interdisciplinar</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/5" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/5" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/5" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/5" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             <tr>
                 <td>6</td>
-                <td>11-12h</td>
-                <td>4</td>
-                <td>5M</td>
-                <td>Manhã</td>
+                <td>Docência, Práticas Educativas e Ensino na Educação</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/6" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/6" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/6" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/6" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             <tr>
                 <td>7</td>
-                <td>12-13h</td>
-                <td>5</td>
-                <td>6M</td>
-                <td>Manhã</td>
+                <td>Física</td>
                 <td>
                     <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/7" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/7" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>13-14h</td>
-                <td>0</td>
-                <td>1T</td>
-                <td>Tarde</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/8" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/8" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>14-15h</td>
-                <td>1</td>
-                <td>2T</td>
-                <td>Tarde</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/9" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/9" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>15-16h</td>
-                <td>2</td>
-                <td>3T</td>
-                <td>Tarde</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/10" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/10" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>16-17h</td>
-                <td>3</td>
-                <td>4T</td>
-                <td>Tarde</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/11" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/11" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>17-18h</td>
-                <td>4</td>
-                <td>5T</td>
-                <td>Tarde</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/12" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/12" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>13</td>
-                <td>18-19h</td>
-                <td>0</td>
-                <td>1N</td>
-                <td>Noite</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/13" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/13" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td>19-20h</td>
-                <td>1</td>
-                <td>2N</td>
-                <td>Noite</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/14" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/14" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>15</td>
-                <td>20-21h</td>
-                <td>2</td>
-                <td>3N</td>
-                <td>Noite</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/15" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/15" class="btn btn-danger"
-                       onclick="return confirm('Confirma exclusão?')">Excluir</a>
-                </td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>21-22h</td>
-                <td>3</td>
-                <td>4N</td>
-                <td>Noite</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="/horario/edit/16" class="btn btn-info">Editar</a>
-                    <a href="/horario/delete/16" class="btn btn-danger"
+                    <a href="/areaconhecimento/edit/7" class="btn btn-info">Editar</a>
+                    <a href="/areaconhecimento/delete/7" class="btn btn-danger"
                        onclick="return confirm('Confirma exclusão?')">Excluir</a>
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="6">
-                    <a href="/horario/import/" class="btn btn-outline-primary">+Importar CSV</a>
+                <td colspan="3">
+                    <a href="/areaconhecimento/import" class="btn btn-outline-primary">+Importar CSV</a>
                 </td>
             </tr>
             </tfoot>

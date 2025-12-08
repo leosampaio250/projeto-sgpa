@@ -1,0 +1,1500 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Lista de Turmas - SGPA</title>
+
+    <style>
+        .turma-container {
+            margin: 16px auto;
+            max-width: 1400px;
+        }
+        .dia-header {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+        .dia-header h3 {
+            color: #111827;
+            font-weight: 600;
+        }
+        .dia-header small {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        .total-sistema {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+        .turno-section {
+            background-color: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+        }
+        .turno-titulo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .turno-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .turno-contador {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .sem-turmas {
+            color: #6b7280;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+        <div class="text-center mb-3">
+            <img src="logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turno.html">Turnos</a></li>
+                            <li><a class="dropdown-item" href="horario.html">Horários</a></li>
+                            <li><a class="dropdown-item" href="sala.html">Salas</a></li>
+                            <li><a class="dropdown-item" href="tipoatividade.html">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turma.html">Turmas</a></li>
+                            <li><a class="dropdown-item" href="componentecurricular.html">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="areaconhecimento.html">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="docente.html">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cenario.html">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div>
+        <h1 class="text-center">Lista de Turmas Cadastradas</h1>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-3"></div>
+
+        <!-- Botões de Navegação e Seletor -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a class="btn btn-outline-secondary  disabled"
+                   href="/turma/view/paginado?index=-1">
+                    « Anterior
+                </a>
+                <a class="btn btn-outline-secondary ms-2"
+                   href="/turma/view/paginado?index=1">
+                    Próximo »
+                </a>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <span class="me-2 flex-shrink-0 text-nowrap">Dia da Semana:</span>
+
+                <select class="form-select form-select-sm"
+                        style="width: auto; min-width: 180px;"
+                        onchange="location.href=this.value;">
+                    <option value="/turma/view/paginado?index=0"
+                            selected="selected">Segunda-feira (57 turmas)</option>
+                    <option value="/turma/view/paginado?index=1">Terça-feira (64 turmas)</option>
+                    <option value="/turma/view/paginado?index=2">Quarta-feira (70 turmas)</option>
+                    <option value="/turma/view/paginado?index=3">Quinta-feira (65 turmas)</option>
+                    <option value="/turma/view/paginado?index=4">Sexta-feira (46 turmas)</option>
+                    <option value="/turma/view/paginado?index=5">Sábado (0 turmas)</option>
+                    <option value="/turma/view/paginado?index=6">Domingo (0 turmas)</option>
+                </select>
+            </div>
+
+            <div>
+                <a href="/turma/new" class="btn btn-success">
+                    +Adicionar
+                </a>
+            </div>
+        </div>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-3"></div>
+
+        <!-- Conteúdo: Dia Atual com Todos os Turnos -->
+        <div class="turma-container">
+            <!-- Cabeçalho do Dia com Total de Turmas -->
+            <div class="dia-header">
+                <h3 class="mb-0">Segunda-feira</h3>
+                <small>📚 Total do dia: 57 turma(s)</small>
+
+                <!-- Total geral do sistema (discreto no canto direito) -->
+                <span class="total-sistema">Total no sistema: 209</span>
+            </div>
+
+            <!-- Para cada turno do dia -->
+            <div class="turno-section">
+                <!-- Cabeçalho do turno com contador ao lado -->
+                <div class="turno-titulo-container">
+                    <div class="turno-titulo">🕐 Turno: Manhã</div>
+                    <div class="turno-contador">26 turma(s)</div>
+                </div>
+
+                <!-- Se o turno tem turmas -->
+                <div>
+                    <table class="table table-striped mb-0">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Componente Curricular</th>
+                            <th class="text-center">Tipo de Atividade</th>
+                            <th class="text-center">Vagas</th>
+                            <th class="text-center">Dia e turno das aulas</th>
+                            <th class="text-center">Docente</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS360 INTRODUÇÃO AOS ESTUDOS DE TECNOLOGIA ASSISTIVA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/2"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/2"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS375 PSICOLOGIA DAS RELAÇÕES HUMANAS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/3"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/3"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td class="text-center">P01</td>
+                            <td class="text-center">GCETENS136.P OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                            <td class="text-center">Aula prática</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/5"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/5"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6</td>
+                            <td class="text-center">P02</td>
+                            <td class="text-center">GCETENS136.P OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                            <td class="text-center">Aula prática</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/6"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/6"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">10</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS211 RADIACAO SOLAR</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/10"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/10"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">11</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS212 TECNOLOGIA DE SISTEMAS FOTOVOLTAICOS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/11"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/11"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">12</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS157 DESENHO TÉCNICO I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/12"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/12"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">16</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS448 SEMINÁRIOS AVANÇADOS DE ENERGIA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/16"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/16"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">22</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS195 PROCESSAMENTO DE MATERIAIS CERAMICOS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/22"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/22"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">23</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS364 QUÍMICA E ESTRUTURA DE POLÍMEROS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/23"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/23"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">25</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS184 FUNDAMENTOS DE CONTROLE</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/25"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/25"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">27</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS163 PROGRAMACAO DE COMPUTADORES II</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/27"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/27"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">32</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS117 PROJETO INTERDISCIPLINAR I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/32"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/32"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">33</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS120.T BASES TEORICAS E EXPERIMENTAIS DA FISICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/33"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/33"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">34</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS117 PROJETO INTERDISCIPLINAR I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/34"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/34"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">37</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS128 PROBABILIDADE E ESTATISTICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/37"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/37"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">40</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS164 MECANICA DOS SOLIDOS I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">40</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/40"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/40"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">41</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS224 GESTAO DA QUALIDADE</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/41"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/41"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">43</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS207 FISICO-QUIMICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/43"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/43"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">45</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS112 DIVERSIDADE CULTURA E RELAÇÕES ÉTNICO-RACIAIS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">60</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/45"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/45"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">47</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS301 METODOLOGIA DA PESQUISA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">60</td>
+                            <td class="text-center">Seg (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/47"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/47"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">51</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS174 CIRCUITOS ELETRONICOS I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/51"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/51"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">53</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS363 CARACTERIZAÇÃO DE MATERIAIS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/53"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/53"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">55</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS205 FUNDAMENTOS DE BIOTECNOLOGIA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/55"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/55"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">56</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS377 TRANSFERÊNCIA DE CALOR E MASSA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/56"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/56"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">57</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS219 ADMINISTRACAO DA PRODUCAO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Manhã), Qua (Manhã)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/57"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/57"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Se o turno NÃO tem turmas -->
+
+            </div>
+            <div class="turno-section">
+                <!-- Cabeçalho do turno com contador ao lado -->
+                <div class="turno-titulo-container">
+                    <div class="turno-titulo">🕐 Turno: Tarde</div>
+                    <div class="turno-contador">31 turma(s)</div>
+                </div>
+
+                <!-- Se o turno tem turmas -->
+                <div>
+                    <table class="table table-striped mb-0">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Componente Curricular</th>
+                            <th class="text-center">Tipo de Atividade</th>
+                            <th class="text-center">Vagas</th>
+                            <th class="text-center">Dia e turno das aulas</th>
+                            <th class="text-center">Docente</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS370 QUÍMICA ORGÂNICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/1"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/1"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS374 INFORMÁTICA ACESSÍVEL</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/4"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/4"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">7</td>
+                            <td class="text-center">P03</td>
+                            <td class="text-center">GCETENS136.P OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                            <td class="text-center">Aula prática</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/7"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/7"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">8</td>
+                            <td class="text-center">P04</td>
+                            <td class="text-center">GCETENS136.P OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                            <td class="text-center">Aula prática</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/8"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/8"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">9</td>
+                            <td class="text-center">P05</td>
+                            <td class="text-center">GCETENS136.P OSCILACOES FLUIDOS E TERMODINAMICA</td>
+                            <td class="text-center">Aula prática</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/9"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/9"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">13</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS157 DESENHO TÉCNICO I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/13"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/13"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">14</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS316 ESTRATÉGIA E ORGANIZAÇÕES</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/14"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/14"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">15</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS361 FUNDAMENTOS E CONCEPÇÕES SOBRE DEFICIÊNCIA II</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/15"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/15"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">17</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS434 PLANEJAMENTO ENERGÉTICO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/17"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/17"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">18</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS326 GESTÃO DA MANUTENÇÃO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qui (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/18"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/18"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">19</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS512 INTRODUÇÃO AO DESENVOLVIMENTO WEB ACESSÍVEL</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/19"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/19"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">20</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS210 COMBUSTAO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/20"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/20"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">21</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS214 MAQUINAS TERMICAS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/21"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/21"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">24</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS388 PROCESSAMENTO DOS MATERIAIS METÁLICOS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/24"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/24"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">26</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS446 TRANSMISSÃO E DISTRIBUIÇÃO DE ENERGIA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/26"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/26"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">28</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS309 ELETRICIDADE APLICADA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/28"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/28"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">29</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS317 PROGRAMAÇÃO E CONTROLE DA PRODUÇÃO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/29"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/29"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">30</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS308 ERGONOMIA E SEGURANÇA DO TRABALHO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/30"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/30"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">31</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS322 SISTEMA DE PRODUÇÃO ENXUTA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/31"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/31"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">35</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS120.T BASES TEORICAS E EXPERIMENTAIS DA FISICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/35"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/35"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">36</td>
+                            <td class="text-center">T03</td>
+                            <td class="text-center">GCETENS120.T BASES TEORICAS E EXPERIMENTAIS DA FISICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/36"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/36"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">38</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS128 PROBABILIDADE E ESTATISTICA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">45</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/38"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/38"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">39</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS327 GESTÃO ESTRATÉGICA DE PESSOAS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Ter (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/39"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/39"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">42</td>
+                            <td class="text-center">T03</td>
+                            <td class="text-center">GCETENS129.T FENOMENOS MECÂNICOS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/42"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/42"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">44</td>
+                            <td class="text-center">T04</td>
+                            <td class="text-center">GCETENS117 PROJETO INTERDISCIPLINAR I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/44"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/44"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">46</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS112 DIVERSIDADE CULTURA E RELAÇÕES ÉTNICO-RACIAIS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">60</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/46"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/46"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">48</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS301 METODOLOGIA DA PESQUISA</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">60</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/48"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/48"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">49</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS323 EMPREENDEDORISMO E INOVAÇÃO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Ter (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/49"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/49"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">50</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS362 ENSAIOS DOS MATERIAIS</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">Seg (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/50"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/50"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">52</td>
+                            <td class="text-center">T01</td>
+                            <td class="text-center">GCETENS167 ELETROMAGNETISMO</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">30</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/52"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/52"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">54</td>
+                            <td class="text-center">T02</td>
+                            <td class="text-center">GCETENS164 MECANICA DOS SOLIDOS I</td>
+                            <td class="text-center">Aula teórica</td>
+                            <td class="text-center">40</td>
+                            <td class="text-center">Seg (Tarde), Qua (Tarde)</td>
+                            <td class="text-center">Não definido</td>
+                            <td class="text-center">
+                                <a href="/turma/edit/54"
+                                   class="btn btn-info btn-sm">
+                                    Editar
+                                </a>
+                                <a href="/turma/delete/54"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Confirma exclusão?')">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Se o turno NÃO tem turmas -->
+
+            </div>
+            <div class="turno-section">
+                <!-- Cabeçalho do turno com contador ao lado -->
+                <div class="turno-titulo-container">
+                    <div class="turno-titulo">🕐 Turno: Noite</div>
+                    <div class="turno-contador">0 turma(s)</div>
+                </div>
+
+                <!-- Se o turno tem turmas -->
+
+
+                <!-- Se o turno NÃO tem turmas -->
+                <div class="sem-turmas">
+                    Nenhuma turma cadastrada para este turno
+                </div>
+            </div>
+
+        </div>
+
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-4"></div>
+
+        <!-- Botão de Importação (sempre visível) -->
+        <div class="text-center">
+            <a href="/turma/import" class="btn btn-outline-primary">
+                +Importar CSV
+            </a>
+        </div>
+
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
