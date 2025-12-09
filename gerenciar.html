@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,7 +17,7 @@
 
     <!-- Título dinâmico da página -->
 
-    <title>Cenários de Alocação de Turmas - SGPA</title>
+    <title>Gerenciar Cenário de Alocação de Turmas  - SGPA</title>
 
 </head>
 <body>
@@ -74,6 +75,16 @@
         </div>
     </nav>
 
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
 
     <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
     <!----------------------------------------------------------------------------------------------------------------->
@@ -83,46 +94,76 @@
     <div class="pb-5"></div>
 
     <div>
-        <h1 class="text-center">Cenários de Alocação de Turmas</h1>
+
+        <h1 class="text-center">Gerenciar Cenário de Alocação de Turmas</h1>
 
         <!----------------------------------------- Espaçador ------------------------------------------------------------->
         <div class="pb-5"></div>
 
-        <table class="table table-sucess table-striped ">
-            <thead>
-            <tr> <a href="/cenario/new" class="btn btn-success">+Adicionar</a></tr>
-            <tr>
-                <!------------- Prenche dinamicamente o nome das colunas com base no objeto ------------------------------->
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Turnos</th>
-                <th>Horários</th>
-                <th>Salas</th>
-                <th>Turmas</th>
-                <th>Viabilidade</th>
-                <th>Processo de Alocação</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
+        <div class="text-end">
+            <a href="" class="btn btn-secondary">
+                Voltar
+            </a>
+        </div>
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-5"></div>
+
+        <table class="table table-sucess ">
+
             <tbody id="corpo-tabela">
-            <!------------------ Prenche dinamicamente o valor de cada coluna com base no objeto -------------------------->
+
             <tr>
-                <td>3</td>
-                <td>Cenário com alocação manual do semestre 2025.2</td>
-                <td>2</td>
-                <td>11</td>
-                <td>37</td>
-                <td>211</td>
-                <td>Cenário Viável</td>
-                <td>Não executado</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="gerenciar.html" class="btn btn-info">Gerenciar</a>
+                <td class="text-center"><h5>Descrição</h5></td>
+                <td class="text-center" ><p>Cenário com alocação manual do semestre 2025.2</p></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="text-center"><h5>Elementos alocados</h5></td>
+                <td class="text-center">
+                    <p>2 turnos, 5 dias, 11 horários, 37 salas, 211 turmas</p>
+                </td>
+                <td class="align-middle">
+                    <a href="configuracoes.html" class="btn btn-info">Alterar configurações</a>
 
                 </td>
             </tr>
+
+            <tr>
+                <td class="text-center align-middle"><h5>Viabilidade</h5></td>
+                <td class="text-center align-middle">
+                    <p style="white-space: pre-line;">✅ <b><span style='color:green;'>Análise Concluída com Sucesso</span></b>: Todos os dias da semana possuem viabilidade atendida.
+                    </p>
+                </td>
+                <td class="align-middle">
+                    <a href="relatorioviabilidade.html" class="btn btn-info">Analisar Viabilidade</a><p></p>
+                    <a href="relatorioviabilidade.html" class="btn btn-secondary">Relatório Detalhado</a><p></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center"><h5>Alocação</h5></td>
+                <td class="text-center"> <p>Alocação executada evoluindo 10 mapas gerados aleatoriamente por 10 gerações. Consultar relatório e visualização dos mapas nos botões abaixo.</p></td>
+                <td class="align-middle">
+                    <a class="btn btn-success mb-2" href="relatorioevolucao.html">Processar Alocação</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center" colspan="3">
+                    <a class="btn btn-primary mb-2 me-2" href="exibirmapa.html">Exibir Mapa de Alocação</a>
+                    <a class="btn btn-secondary mb-2" href="relatorioevolucao.html">Relatório do Processo</a>
+                </td>
+
+            </tr>
+
             </tbody>
         </table>
+        <a href=""
+           class="btn btn-danger btn-sm float-end"
+           onclick="return confirm('Confirma exclusão?')">
+            Excluir cenário
+        </a>
+
 
     </div>
 

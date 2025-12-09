@@ -16,7 +16,7 @@
 
     <!-- Título dinâmico da página -->
 
-    <title>Cenários de Alocação de Turmas - SGPA</title>
+    <title>Relatório Análise de Viabilidade - SGPA</title>
 
 </head>
 <body>
@@ -74,6 +74,16 @@
         </div>
     </nav>
 
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
 
     <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
     <!----------------------------------------------------------------------------------------------------------------->
@@ -83,46 +93,33 @@
     <div class="pb-5"></div>
 
     <div>
-        <h1 class="text-center">Cenários de Alocação de Turmas</h1>
+        <div class="text-end">
+            <a href="/cenario/edit/3" class="btn btn-secondary">
+                Voltar
+            </a>
+        </div>
+        <!----------------------------------------- Espaçador ------------------------------------------------------------->
+        <div class="pb-5"></div>
+
+        <h1 class="text-center">Relatório Análise de Viabilidade</h1>
 
         <!----------------------------------------- Espaçador ------------------------------------------------------------->
         <div class="pb-5"></div>
 
-        <table class="table table-sucess table-striped ">
-            <thead>
-            <tr> <a href="/cenario/new" class="btn btn-success">+Adicionar</a></tr>
-            <tr>
-                <!------------- Prenche dinamicamente o nome das colunas com base no objeto ------------------------------->
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Turnos</th>
-                <th>Horários</th>
-                <th>Salas</th>
-                <th>Turmas</th>
-                <th>Viabilidade</th>
-                <th>Processo de Alocação</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody id="corpo-tabela">
-            <!------------------ Prenche dinamicamente o valor de cada coluna com base no objeto -------------------------->
-            <tr>
-                <td>3</td>
-                <td>Cenário com alocação manual do semestre 2025.2</td>
-                <td>2</td>
-                <td>11</td>
-                <td>37</td>
-                <td>211</td>
-                <td>Cenário Viável</td>
-                <td>Não executado</td>
-                <td>
-                    <!--------------------- Direciona os botões de editar/excluir  ---------------------------------------->
-                    <a href="gerenciar.html" class="btn btn-info">Gerenciar</a>
+        <p style="white-space: pre-line;"><h3>Análise de Viabilidade por Dia da Semana</h3>
 
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <hr><h4>Segunda-feira</h4>
+        <br><strong>[Resumo Macro]</strong> Aulas Práticas: Horários disponíveis=198, necessários=9 | Aulas Teóricas: Horários disponíveis=209, necessários=116<br><br><strong>[1- Verificação das Aulas Práticas]</strong>  Horários Disponiveis=198 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/121h, 22v/11h, 25v/33h}<br><br><strong>[2- Horários de Aula Prática restantes (após alocação)]</strong>  Horários Disponiveis=189 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/112h, 22v/11h, 25v/33h}<br><br><strong>[3- Verificação das Aulas Teóricas + sobras das Aulas Prática]</strong>  Horários Disponiveis=398 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/156h, 22v/11h, 25v/33h, 30v/44h, 40v/77h, 50v/11h, 60v/33h}<br><br> <b><span style='color:green;'>✓ Viabilidade atendida</span></b>: há slots suficientes considerando tipos, capacidades e duração das turmas.<br>
+        <hr><h4>Terça-feira</h4>
+        <br><strong>[Resumo Macro]</strong> Aulas Práticas: Horários disponíveis=198, necessários=25 | Aulas Teóricas: Horários disponíveis=209, necessários=108<br><br><strong>[1- Verificação das Aulas Práticas]</strong>  Horários Disponiveis=198 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/121h, 22v/11h, 25v/33h}<br><br><strong>[2- Horários de Aula Prática restantes (após alocação)]</strong>  Horários Disponiveis=173 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/96h, 22v/11h, 25v/33h}<br><br><strong>[3- Verificação das Aulas Teóricas + sobras das Aulas Prática]</strong>  Horários Disponiveis=382 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/140h, 22v/11h, 25v/33h, 30v/44h, 40v/77h, 50v/11h, 60v/33h}<br><br> <b><span style='color:green;'>✓ Viabilidade atendida</span></b>: há slots suficientes considerando tipos, capacidades e duração das turmas.<br>
+        <hr><h4>Quarta-feira</h4>
+        <br><strong>[Resumo Macro]</strong> Aulas Práticas: Horários disponíveis=198, necessários=19 | Aulas Teóricas: Horários disponíveis=209, necessários=122<br><br><strong>[1- Verificação das Aulas Práticas]</strong>  Horários Disponiveis=198 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/121h, 22v/11h, 25v/33h}<br><br><strong>[2- Horários de Aula Prática restantes (após alocação)]</strong>  Horários Disponiveis=179 | Capacidade das salas/Quantidade de horários disponíveis={10v/29h, 20v/106h, 22v/11h, 25v/33h}<br><br><strong>[3- Verificação das Aulas Teóricas + sobras das Aulas Prática]</strong>  Horários Disponiveis=388 | Capacidade das salas/Quantidade de horários disponíveis={10v/29h, 20v/150h, 22v/11h, 25v/33h, 30v/44h, 40v/77h, 50v/11h, 60v/33h}<br><br> <b><span style='color:green;'>✓ Viabilidade atendida</span></b>: há slots suficientes considerando tipos, capacidades e duração das turmas.<br>
+        <hr><h4>Quinta-feira</h4>
+        <br><strong>[Resumo Macro]</strong> Aulas Práticas: Horários disponíveis=198, necessários=24 | Aulas Teóricas: Horários disponíveis=209, necessários=122<br><br><strong>[1- Verificação das Aulas Práticas]</strong>  Horários Disponiveis=198 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/121h, 22v/11h, 25v/33h}<br><br><strong>[2- Horários de Aula Prática restantes (após alocação)]</strong>  Horários Disponiveis=174 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/97h, 22v/11h, 25v/33h}<br><br><strong>[3- Verificação das Aulas Teóricas + sobras das Aulas Prática]</strong>  Horários Disponiveis=383 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/141h, 22v/11h, 25v/33h, 30v/44h, 40v/77h, 50v/11h, 60v/33h}<br><br> <b><span style='color:green;'>✓ Viabilidade atendida</span></b>: há slots suficientes considerando tipos, capacidades e duração das turmas.<br>
+        <hr><h4>Sexta-feira</h4>
+        <br><strong>[Resumo Macro]</strong> Aulas Práticas: Horários disponíveis=198, necessários=8 | Aulas Teóricas: Horários disponíveis=209, necessários=96<br><br><strong>[1- Verificação das Aulas Práticas]</strong>  Horários Disponiveis=198 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/121h, 22v/11h, 25v/33h}<br><br><strong>[2- Horários de Aula Prática restantes (após alocação)]</strong>  Horários Disponiveis=190 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/113h, 22v/11h, 25v/33h}<br><br><strong>[3- Verificação das Aulas Teóricas + sobras das Aulas Prática]</strong>  Horários Disponiveis=399 | Capacidade das salas/Quantidade de horários disponíveis={10v/33h, 20v/157h, 22v/11h, 25v/33h, 30v/44h, 40v/77h, 50v/11h, 60v/33h}<br><br> <b><span style='color:green;'>✓ Viabilidade atendida</span></b>: há slots suficientes considerando tipos, capacidades e duração das turmas.<br><hr><h4>Resultado Geral</h4>
+        ✅ <b><span style='color:green;'>Análise Concluída com Sucesso</span></b>: Todos os dias da semana possuem viabilidade atendida.<br></p>
+
 
     </div>
 

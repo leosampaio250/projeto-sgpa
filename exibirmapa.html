@@ -1,0 +1,2318 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Visualizar Alocação - Mapa por Dia - SGPA</title>
+
+    <style>
+        /* Container com scroll horizontal para tabelas grandes */
+        .tabela-container {
+            overflow-x: auto;
+            overflow-y: visible;
+            margin-bottom: 2rem;
+        }
+
+        /* Estilos gerais da tabela */
+        .tabela-alocacao {
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            table-layout: fixed;
+            width: auto;
+            min-width: 100%;
+        }
+
+        /* Largura fixa para a coluna de horários */
+        .tabela-alocacao th.coluna-horario {
+            width: 100px;
+            min-width: 100px;
+        }
+
+        /* Largura fixa para cada coluna de sala */
+        .tabela-alocacao th.coluna-sala,
+        .tabela-alocacao td {
+            width: 150px;
+            min-width: 150px;
+            max-width: 150px;
+        }
+
+        .tabela-alocacao th,
+        .tabela-alocacao td {
+            border: 1px solid #dee2e6;
+            padding: 15px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.85rem;
+        }
+
+        .tabela-alocacao thead th {
+            background-color: #b8b8b8; /* Cinza mais claro */
+            color: #333;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* Cabeçalhos de sala - distinguindo por tipo com cores mais suaves */
+        .tabela-alocacao thead th.sala-tipo-teorica {
+            background-color: #b8d4f1; /* Azul bem suave para salas teóricas */
+            color: #2c5282;
+        }
+
+        .tabela-alocacao thead th.sala-tipo-pratica {
+            background-color: #b8e6c9; /* Verde bem suave para salas práticas */
+            color: #2d6a4f;
+        }
+
+        /* Células de horário */
+        .tabela-alocacao tbody th {
+            background-color: #f0f0f0; /* Cinza muito claro */
+            font-weight: 600;
+            white-space: nowrap;
+            color: #555;
+        }
+
+        /* Células com alocação - por tipo de turma com cores bem suaves */
+        .tabela-alocacao td.ok {
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: pre-line;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .tabela-alocacao td.ok.tipo-teorica {
+            background-color: #e3f2fd; /* Azul muito claro para turmas teóricas */
+            border-left: 3px solid #90caf9; /* Borda azul suave */
+            color: #1565c0;
+        }
+
+        .tabela-alocacao td.ok.tipo-pratica {
+            background-color: #e8f5e9; /* Verde muito claro para turmas práticas */
+            border-left: 3px solid #81c784; /* Borda verde suave */
+            color: #2e7d32;
+        }
+
+        .tabela-alocacao td.ok:hover {
+            background-color: #fff3cd; /* Amarelo suave no hover */
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Células vazias */
+        .tabela-alocacao td.vazio {
+            background-color: #fafafa;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Seção de turno */
+        .turno-section {
+            margin-bottom: 3rem;
+        }
+
+        .turno-section h4 {
+            background-color: #9e9e9e; /* Cinza claro */
+            color: #333;
+            padding: 10px 15px;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        /* Navegação entre dias */
+        .navegacao-dias {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .navegacao-dias h3 {
+            margin: 0;
+            color: #343a40;
+        }
+
+        .navegacao-dias .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Tooltips */
+        .tabela-alocacao td[title] {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+        <div class="text-center mb-3">
+            <img src="logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turno.html">Turnos</a></li>
+                            <li><a class="dropdown-item" href="horario.html">Horários</a></li>
+                            <li><a class="dropdown-item" href="sala.html">Salas</a></li>
+                            <li><a class="dropdown-item" href="tipoatividade.html">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turma.html">Turmas</a></li>
+                            <li><a class="dropdown-item" href="componentecurricular.html">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="areaconhecimento.html">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="docente.html">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cenario.html">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Visualizar Alocação: Cenário com alocação manual do semestre 2025.2</h2>
+                <a href="/cenario/edit/3" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+            </div>
+
+            <!-- Navegação entre dias da semana -->
+            <div class="navegacao-dias">
+
+                <h3>Segunda-feira</h3>
+                <a href="/cenario/alocacao/exibir/3/dia?index=1"
+                   class="btn btn-primary">
+                    Próximo Dia <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Informações do melhor mapa -->
+            <div class="alert alert-info">
+                <h5>Melhor Mapa - Score Total: <span>3114</span></h5>
+                <p class="mb-0">
+                    <strong>Componentes do Score:</strong>
+                    Capacidade: <span>14</span> |
+                    Tipo Atividade: <span>1720</span> |
+                    Turno: <span>1250</span> |
+                    Agrupamento: <span>130</span>
+                </p>
+            </div>
+
+            <!-- Tabela de alocação -->
+            <div>
+                <h4>Mapa de Alocação - Segunda-feira</h4>
+
+                <!-- Itera sobre os turnos -->
+                <div class="turno-section">
+                    <h4>Manhã</h4>
+
+                    <div class="tabela-container">
+                        <table class="tabela-alocacao table-bordered">
+                            <colgroup>
+                                <col class="coluna-horario">
+                                <col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th class="coluna-horario" style="background-color: #d0d0d0;">Horário</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 01
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 02
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 03
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 04
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 05
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 06
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 07
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 08
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 09
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 101
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 103
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 105
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 201
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 202
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 203
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 204
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab info 1
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab info 2
+                                    (22 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 001
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 002
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 101
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 102
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 103
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 104
+                                    (50 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 201
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 202
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 203
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 204
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 205
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 206
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 207
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 208
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 209
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 210
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 211
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 212
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala de reuniões
+                                    (30 lug)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th class="coluna-horario">07-08h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">08-09h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: INTRODUÇÃO AOS ESTUDOS DE TECNOLOGIA ASSISTIVA
+Código: GCETENS360
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 5
+Score Capacidade: -10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS360
+                                    (T | 30 lug | 5 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-pratica"
+                                    title="Turma: OSCILACOES FLUIDOS E TERMODINAMICA
+Código: GCETENS136.P
+Código da Turma: P01
+Tipo: Aula prática
+Vagas: 15
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS136.P
+                                    (P | 15 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: RADIACAO SOLAR
+Código: GCETENS211
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 25
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 10
+Score Capacidade: -5
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS211
+                                    (T | 25 lug | 10 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="4"
+                                    class="ok tipo-teorica"
+                                    title="Turma: DESENHO TÉCNICO I
+Código: GCETENS157
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 0
+Score Capacidade: -20
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 5">GCETENS157
+                                    (T | 45 lug | 0 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROCESSAMENTO DE MATERIAIS CERAMICOS
+Código: GCETENS195
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 21
+Score Capacidade: 6
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS195
+                                    (T | 15 lug | 21 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: BASES TEORICAS E EXPERIMENTAIS DA FISICA
+Código: GCETENS120.T
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 27
+Score Capacidade: -3
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS120.T
+                                    (T | 45 lug | 27 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: MECANICA DOS SOLIDOS I
+Código: GCETENS164
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 40
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS164
+                                    (T | 40 lug | 40 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: FISICO-QUIMICA
+Código: GCETENS207
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS207
+                                    (T | 30 lug | 38 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: METODOLOGIA DA PESQUISA
+Código: GCETENS301
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 60
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS301
+                                    (T | 60 lug | 40 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ADMINISTRACAO DA PRODUCAO
+Código: GCETENS219
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 20
+Score Capacidade: -10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS219
+                                    (T | 30 lug | 20 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: CARACTERIZAÇÃO DE MATERIAIS
+Código: GCETENS363
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS363
+                                    (T | 15 lug | 38 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: FUNDAMENTOS DE BIOTECNOLOGIA
+Código: GCETENS205
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 20
+Score Capacidade: -10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS205
+                                    (T | 45 lug | 20 pts)</td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">09-10h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: SEMINÁRIOS AVANÇADOS DE ENERGIA
+Código: GCETENS448
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 25
+Score Capacidade: 10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS448
+                                    (T | 20 lug | 25 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: FUNDAMENTOS DE CONTROLE
+Código: GCETENS184
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 25
+Score Capacidade: 10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS184
+                                    (T | 20 lug | 25 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROBABILIDADE E ESTATISTICA
+Código: GCETENS128
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 27
+Score Capacidade: -3
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS128
+                                    (T | 45 lug | 27 pts)</td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: CIRCUITOS ELETRONICOS I
+Código: GCETENS174
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS174
+                                    (T | 20 lug | 40 pts)</td>
+
+
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">10-11h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PSICOLOGIA DAS RELAÇÕES HUMANAS
+Código: GCETENS375
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 5
+Score Capacidade: -10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS375
+                                    (T | 30 lug | 5 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-pratica"
+                                    title="Turma: OSCILACOES FLUIDOS E TERMODINAMICA
+Código: GCETENS136.P
+Código da Turma: P02
+Tipo: Aula prática
+Vagas: 15
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS136.P
+                                    (P | 15 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: TECNOLOGIA DE SISTEMAS FOTOVOLTAICOS
+Código: GCETENS212
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 25
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 10
+Score Capacidade: -5
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS212
+                                    (T | 25 lug | 10 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: QUÍMICA E ESTRUTURA DE POLÍMEROS
+Código: GCETENS364
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 21
+Score Capacidade: 6
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS364
+                                    (T | 15 lug | 21 pts)</td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROGRAMACAO DE COMPUTADORES II
+Código: GCETENS163
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 8
+Score Capacidade: -7
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS163
+                                    (T | 30 lug | 8 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROJETO INTERDISCIPLINAR I
+Código: GCETENS117
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 42
+Score Capacidade: 7
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS117
+                                    (T | 20 lug | 42 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROJETO INTERDISCIPLINAR I
+Código: GCETENS117
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 35
+Score Capacidade: 5
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS117
+                                    (T | 20 lug | 35 pts)</td>
+
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: GESTAO DA QUALIDADE
+Código: GCETENS224
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS224
+                                    (T | 30 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: DIVERSIDADE CULTURA E RELAÇÕES ÉTNICO-RACIAIS
+Código: GCETENS112
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 60
+Dias/Turnos: Seg (Manhã)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS112
+                                    (T | 60 lug | 40 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: TRANSFERÊNCIA DE CALOR E MASSA
+Código: GCETENS377
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Manhã), Qua (Manhã)
+---
+Score Total: 37
+Score Capacidade: 7
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS377
+                                    (T | 20 lug | 37 pts)</td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">11-12h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">12-13h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="turno-section">
+                    <h4>Tarde</h4>
+
+                    <div class="tabela-container">
+                        <table class="tabela-alocacao table-bordered">
+                            <colgroup>
+                                <col class="coluna-horario">
+                                <col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala"><col class="coluna-sala">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th class="coluna-horario" style="background-color: #d0d0d0;">Horário</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 01
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 02
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 03
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 04
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 05
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 06
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 07
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 08
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 09
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 101
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 103
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 105
+                                    (10 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 201
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 202
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 203
+                                    (25 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab 204
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab info 1
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-pratica">Lab info 2
+                                    (22 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 001
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 002
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 101
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 102
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 103
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 104
+                                    (50 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 201
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 202
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 203
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 204
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 205
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 206
+                                    (40 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 207
+                                    (60 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 208
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 209
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 210
+                                    (30 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 211
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala 212
+                                    (20 lug)</th>
+                                <th class="coluna-sala sala-tipo-teorica">Sala de reuniões
+                                    (30 lug)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th class="coluna-horario">13-14h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-pratica"
+                                    title="Turma: OSCILACOES FLUIDOS E TERMODINAMICA
+Código: GCETENS136.P
+Código da Turma: P03
+Tipo: Aula prática
+Vagas: 15
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 43
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS136.P
+                                    (P | 15 lug | 43 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: DIVERSIDADE CULTURA E RELAÇÕES ÉTNICO-RACIAIS
+Código: GCETENS112
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 60
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 45
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS112
+                                    (T | 60 lug | 45 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">14-15h</th>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: QUÍMICA ORGÂNICA
+Código: GCETENS370
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 23
+Score Capacidade: 8
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS370
+                                    (T | 15 lug | 23 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="4"
+                                    class="ok tipo-teorica"
+                                    title="Turma: INFORMÁTICA ACESSÍVEL
+Código: GCETENS374
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 10
+Score Capacidade: -10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 5">GCETENS374
+                                    (T | 30 lug | 10 pts)</td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="4"
+                                    class="ok tipo-teorica"
+                                    title="Turma: DESENHO TÉCNICO I
+Código: GCETENS157
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: -5
+Score Capacidade: -20
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS157
+                                    (T | 45 lug | -5 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ESTRATÉGIA E ORGANIZAÇÕES
+Código: GCETENS316
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 5
+Score Capacidade: -10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS316
+                                    (T | 30 lug | 5 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: GESTÃO DA MANUTENÇÃO
+Código: GCETENS326
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qui (Tarde)
+---
+Score Total: 0
+Score Capacidade: -20
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 5">GCETENS326
+                                    (T | 30 lug | 0 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: COMBUSTAO
+Código: GCETENS210
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 23
+Score Capacidade: 8
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS210
+                                    (T | 20 lug | 23 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: TRANSMISSÃO E DISTRIBUIÇÃO DE ENERGIA
+Código: GCETENS446
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 25
+Score Capacidade: 10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS446
+                                    (T | 20 lug | 25 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ELETRICIDADE APLICADA
+Código: GCETENS309
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 20
+Score Capacidade: -10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS309
+                                    (T | 45 lug | 20 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ERGONOMIA E SEGURANÇA DO TRABALHO
+Código: GCETENS308
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS308
+                                    (T | 30 lug | 40 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: BASES TEORICAS E EXPERIMENTAIS DA FISICA
+Código: GCETENS120.T
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS120.T
+                                    (T | 30 lug | 38 pts)</td>
+                                <td rowspan="3"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROBABILIDADE E ESTATISTICA
+Código: GCETENS128
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 45
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 27
+Score Capacidade: -3
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS128
+                                    (T | 45 lug | 27 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: FENOMENOS MECÂNICOS
+Código: GCETENS129.T
+Código da Turma: T03
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS129.T
+                                    (T | 30 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: EMPREENDEDORISMO E INOVAÇÃO
+Código: GCETENS323
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Ter (Tarde)
+---
+Score Total: 20
+Score Capacidade: -10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS323
+                                    (T | 30 lug | 20 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">15-16h</th>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="2"
+                                    class="ok tipo-pratica"
+                                    title="Turma: OSCILACOES FLUIDOS E TERMODINAMICA
+Código: GCETENS136.P
+Código da Turma: P04
+Tipo: Aula prática
+Vagas: 15
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 43
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS136.P
+                                    (P | 15 lug | 43 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">16-17h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: FUNDAMENTOS E CONCEPÇÕES SOBRE DEFICIÊNCIA II
+Código: GCETENS361
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 5
+Score Capacidade: -10
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS361
+                                    (T | 30 lug | 5 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PLANEJAMENTO ENERGÉTICO
+Código: GCETENS434
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 0
+Score Capacidade: -20
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 5">GCETENS434
+                                    (T | 20 lug | 0 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: INTRODUÇÃO AO DESENVOLVIMENTO WEB ACESSÍVEL
+Código: GCETENS512
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: -5
+Score Capacidade: -20
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS512
+                                    (T | 30 lug | -5 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: MAQUINAS TERMICAS
+Código: GCETENS214
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 23
+Score Capacidade: 8
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS214
+                                    (T | 20 lug | 23 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROCESSAMENTO DOS MATERIAIS METÁLICOS
+Código: GCETENS388
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 21
+Score Capacidade: 6
+Score Tipo Atividade: 5
+Score Turno: 10
+Score Agrupamento: 0">GCETENS388
+                                    (T | 15 lug | 21 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROGRAMAÇÃO E CONTROLE DA PRODUÇÃO
+Código: GCETENS317
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS317
+                                    (T | 30 lug | 40 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: BASES TEORICAS E EXPERIMENTAIS DA FISICA
+Código: GCETENS120.T
+Código da Turma: T03
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS120.T
+                                    (T | 30 lug | 38 pts)</td>
+
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: GESTÃO ESTRATÉGICA DE PESSOAS
+Código: GCETENS327
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Ter (Tarde)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS327
+                                    (T | 30 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: PROJETO INTERDISCIPLINAR I
+Código: GCETENS117
+Código da Turma: T04
+Tipo: Aula teórica
+Vagas: 20
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 40
+Score Capacidade: 5
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS117
+                                    (T | 20 lug | 40 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: METODOLOGIA DA PESQUISA
+Código: GCETENS301
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 60
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 45
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS301
+                                    (T | 60 lug | 45 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ENSAIOS DOS MATERIAIS
+Código: GCETENS362
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 15
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 38
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS362
+                                    (T | 15 lug | 38 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: ELETROMAGNETISMO
+Código: GCETENS167
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 20
+Score Capacidade: -10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS167
+                                    (T | 30 lug | 20 pts)</td>
+                                <td rowspan="2"
+                                    class="ok tipo-teorica"
+                                    title="Turma: MECANICA DOS SOLIDOS I
+Código: GCETENS164
+Código da Turma: T02
+Tipo: Aula teórica
+Vagas: 40
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 10
+Score Capacidade: -20
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS164
+                                    (T | 40 lug | 10 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            <tr>
+                                <th class="coluna-horario">17-18h</th>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="ok tipo-pratica"
+                                    title="Turma: OSCILACOES FLUIDOS E TERMODINAMICA
+Código: GCETENS136.P
+Código da Turma: P05
+Tipo: Aula prática
+Vagas: 15
+Dias/Turnos: Seg (Tarde)
+---
+Score Total: 43
+Score Capacidade: 8
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 5">GCETENS136.P
+                                    (P | 15 lug | 43 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="ok tipo-teorica"
+                                    title="Turma: SISTEMA DE PRODUÇÃO ENXUTA
+Código: GCETENS322
+Código da Turma: T01
+Tipo: Aula teórica
+Vagas: 30
+Dias/Turnos: Seg (Tarde), Qua (Tarde)
+---
+Score Total: 40
+Score Capacidade: 10
+Score Tipo Atividade: 20
+Score Turno: 10
+Score Agrupamento: 0">GCETENS322
+                                    (T | 30 lug | 40 pts)</td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+
+
+                                <td rowspan="1"
+                                    class="vazio"
+                                    title="Sem alocação"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

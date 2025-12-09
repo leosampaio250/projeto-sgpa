@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-------------------------------- Importa BootStrap e Javascript ------------------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+
+    <!----------------------- Adicione o CSS do FontAwesome para os ícones -------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <!-- Título dinâmico da página -->
+
+    <title>Relatório de Evolução dos Mapas de Alocação - SGPA</title>
+
+</head>
+<body>
+<!-- Container principal -->
+<div class="container px-lg-5">
+    <!---------------------------------- Importa o fragmento do menu -------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+        <div class="text-center mb-3">
+            <img src="logosgpa3.png" alt="Logo do Sistema" height="80">
+        </div>
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Estrutura
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turno.html">Turnos</a></li>
+                            <li><a class="dropdown-item" href="horario.html">Horários</a></li>
+                            <li><a class="dropdown-item" href="sala.html">Salas</a></li>
+                            <li><a class="dropdown-item" href="tipoatividade.html">Tipos de atividades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acadêmico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="turma.html">Turmas</a></li>
+                            <li><a class="dropdown-item" href="componentecurricular.html">Componentes Curriculares</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="areaconhecimento.html">Áreas de conhecimento</a></li>
+                            <li><a class="dropdown-item" href="docente.html">Docentes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cenario.html">Alocação</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------ Importa o fragmento das mensagens de sucesso e erro ------------------------------------>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div>
+        <!-- Mensagens de sucesso -->
+
+
+        <!-- Mensagens de erro -->
+
+    </div>
+
+    <!--------------------------------- Conteúdo específico da página ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+
+    <div class="pb-5"></div>
+
+    <div class="container">
+
+        <h1 class="text-center">Relatório de Evolução dos Mapas de Alocação</h1>
+
+        <div class="pb-4"></div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <p>Relatório da Evolução dos Mapas de Alocação (Cenário ID: 3)</p>
+            </div>
+
+            <div class="card-body">
+
+                <div class="pb-3"></div>
+
+                <!-- Seção: Histórico completo por dia da semana -->
+                <div>
+                    <h5 class="mt-4 mb-3">Histórico Completo por Dia da Semana</h5>
+                    <div class="border p-3">MONDAY:<br></strong>
+                        Geração 0 → Score: 1644 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 1 → Score: 3836 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 2 → Score: 4153 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 3 → Score: 4285 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 4 → Score: 4262 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 5 → Score: 4329 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 6 → Score: 4338 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 7 → Score: 4358 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 8 → Score: 4312 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 9 → Score: 4373 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 10 → Score: 4274 (Turmas não alocadas: 0)
+
+                        <strong><br><br>TUESDAY:<br></strong>
+                        Geração 0 → Score: 1490 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 1 → Score: 3855 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 2 → Score: 4168 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 3 → Score: 4243 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 4 → Score: 4412 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 5 → Score: 4339 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 6 → Score: 4310 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 7 → Score: 4285 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 8 → Score: 4216 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 9 → Score: 4282 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 10 → Score: 4312 (Turmas não alocadas: 0)
+
+                        <strong><br><br>WEDNESDAY:<br></strong>
+                        Geração 0 → Score: 2041 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 1 → Score: 4115 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 2 → Score: 4595 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 3 → Score: 4771 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 4 → Score: 4832 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 5 → Score: 4781 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 6 → Score: 4773 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 7 → Score: 4833 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 8 → Score: 4770 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 9 → Score: 4791 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 10 → Score: 4796 (Turmas não alocadas: 0)
+
+                        <strong><br><br>THURSDAY:<br></strong>
+                        Geração 0 → Score: 1794 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 1 → Score: 4721 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 2 → Score: 4725 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 3 → Score: 4916 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 4 → Score: 4834 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 5 → Score: 4959 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 6 → Score: 5020 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 7 → Score: 5030 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 8 → Score: 5002 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 9 → Score: 5018 (Turmas não alocadas: 0)
+
+                        <strong><br></strong>
+                        Geração 10 → Score: 4991 (Turmas não alocadas: 0)
+
+                        <strong><br><br>FRIDAY:<br></strong>
+                        Geração 0 → Score: 1128 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 1 → Score: 3409 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 2 → Score: 3496 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 3 → Score: 3493 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 4 → Score: 3495 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 5 → Score: 3438 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 6 → Score: 3402 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 7 → Score: 3376 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 8 → Score: 3438 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 9 → Score: 3436 (Turmas não alocadas: 0)
+
+
+                        <strong><br></strong>
+                        Geração 10 → Score: 3398 (Turmas não alocadas: 0)<br><br></div>
+                </div>
+
+                <!-- Seção: Detalhamento por dia da semana -->
+                <div>
+
+                    <h5 class="mt-4 mb-3">Detalhamento por Dia da Semana (Melhor mapa de cada dia)</h5>
+
+                    <div>
+
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover align-middle text-center">
+                                <thead class="table-secondary">
+                                <tr>
+                                    <th>Dia da Semana</th>
+                                    <th>ID do Mapa</th>
+                                    <th>Score Total</th>
+                                    <th>Capacidade</th>
+                                    <th>Tipo Atividade</th>
+                                    <th>Turno</th>
+                                    <th>Agrupamento</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Segunda-feira</td>
+                                    <td>8705</td>
+
+                                    <td>3114</td>
+                                    <td>14</td>
+                                    <td>1720</td>
+                                    <td>1250</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Quinta-feira</td>
+                                    <td>8708</td>
+
+                                    <td>3696</td>
+                                    <td>1</td>
+                                    <td>2175</td>
+                                    <td>1440</td>
+                                    <td>80</td>
+                                </tr>
+                                <tr>
+                                    <td>Sexta-feira</td>
+                                    <td>8709</td>
+
+                                    <td>2785</td>
+                                    <td>-120</td>
+                                    <td>1720</td>
+                                    <td>1040</td>
+                                    <td>145</td>
+                                </tr>
+                                <tr>
+                                    <td>Terça-feira</td>
+                                    <td>8706</td>
+
+                                    <td>3644</td>
+                                    <td>114</td>
+                                    <td>2045</td>
+                                    <td>1330</td>
+                                    <td>155</td>
+                                </tr>
+                                <tr>
+                                    <td>Quarta-feira</td>
+                                    <td>8707</td>
+
+                                    <td>3660</td>
+                                    <td>90</td>
+                                    <td>2030</td>
+                                    <td>1390</td>
+                                    <td>150</td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso não existam mapas -->
+
+
+                <div class="pb-3"></div>
+
+                <a class="btn btn-success mb-2 float-end" href="/cenario/alocacao/exibir/3">
+                    Prosseguir com Visualização
+                </a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------- Espaçador ------------------------------------------------------------->
+    <div class="pb-5"></div>
+
+    <!--------------------------------- Importa o fragmento do footer ------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------->
+    <footer class="footer bg-light py-3 mt-4">
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Coluna da Logo e Nome do Sistema -->
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-0">SGPA</h4>
+                    <small class="text-muted">Sistema de Gestão do Planejamento Acadêmico</small><br>
+                    Versão <span>0.0.1</span>
+
+                </div>
+
+                <!-- Coluna de Informações de Contato -->
+                <div class="col-md-4">
+                    <h6>Contato</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope"></i> leonardosampaio@ufrb.edu.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Feira de Santana - Bahia</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Links Úteis -->
+                <div class="col-md-4">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Suporte</a></li>
+                        <li><a href="#" class="text-decoration-none">Manual do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linha de Copyright -->
+            <div class="row mt-3 border-top pt-3">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        © <span>2025</span>
+                        Sistema de Gestão do Planejamento Acadêmico. Todos os direitos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
